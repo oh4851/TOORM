@@ -1,10 +1,15 @@
 #!/bin/bash
 
 # TODO: 
-# 0. write to manage_list new file location
+# 0. append new file location to manage_list.dat
+#    - edit file on vim
+#    - if to use w(write) command
+#    - save "pwd" to manage_list
 # 1. run script on bash is loaded
+#    - start bash shell
 # 2. manage_list read
 # 3. check date
+#    - check nowDate, listDate
 # 4. select backup / remove
 # 5. move files
 # 6. remove or manage files
