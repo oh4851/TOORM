@@ -7,19 +7,19 @@
 #    - save "pwd" to manage_list
 # 1. run script on bash is loaded
 #    - start bash shell
-# 4. select backup / remove
 # 5. move files
 # 6. remove or manage files
 # TODO: Done
 # 2. read file location list from 'manage_list.dat'
 # 3. check date difference
+# 4. choose backup / remove
 
 # get Now date in seconds
 nowD=`date "+%Y%m%d"`
 nowD=`date -d $nowD "+%s"`
 
 for elem in $(cat manage_list.dat); do
-  echo $elem
+  echo -n '[File:' $elem']'
 
   # get Element create/modify date in seconds
   elemD=`date -r $elem "+%Y%m%d"`
@@ -27,14 +27,19 @@ for elem in $(cat manage_list.dat); do
 
   # get Date Difference in days
   diff="$((($nowD-$elemD)/(60*60*24)))"
-  echo $diff
+  echo '[DateDiff:' $diff']'
 
   # check date over
+  # not over
   if [ $elemD -eq $nowD ]; then
-    # not over
-	echo "ok";
+	echo ' > Date is OK'
+  # over
   else
-    # over
-    echo "no";
+    echo ' > Date Over'
+    # choose, how to operating about time over file
+    echo -n ' > Choose Backup(b) / Remove(r): '
+    read option
+    echo ' > Choose:' $option;
   fi
+  echo ''
 done
