@@ -7,7 +7,6 @@
 #    - save "pwd" to manage_list
 # 1. run script on bash is loaded
 #    - start bash shell
-# 7. remove or manage files
 # TODO: Done
 # 2. read file location list from '~/.TOORM/manage_list.dat'
 # 3. check date difference
@@ -15,6 +14,7 @@
 # **** 5, 6 will be remove echo when test end ****
 # 5. move files
 # 6. remove file location from 'manage_list.dat'
+# 7. remove or manage files
 
 # get datetime in seconds function
 # param: empty | $1=file location
@@ -34,7 +34,7 @@ function getDateInSeconds(){
 # return: 0=date over (0 is true case in shell script)
 function isDateOver(){
     local diff="$((($1-$2)/(60*60*24)))"
-    echo -n '[Datediff:' $diff'] >> '
+    echo -n '(Diff: '$diff')] >> '
     if [ $diff -gt 1 ]; then
         echo 'OVER'
         return 0
@@ -81,7 +81,7 @@ echo ''
 nowD=$(getDateInSeconds)
 
 for elem in $(cat ~/.TOORM/manage_list.dat); do
-    echo -n '[File:' $elem']'
+    echo -n '[TOORM: '$elem' -- '
 
     # get Element create/modify date in seconds
     elemD=$(getDateInSeconds $elem)
@@ -105,3 +105,13 @@ for elem in $(cat ~/.TOORM/manage_list.dat); do
         done
     fi
 done
+
+echo '---------------------------------------------'
+# remove files in ~/.TOORM/remove/
+echo "[TOORM: remove files in ~/.TOORM/remove]"
+echo "    * rm -rf ~/.TOORM/remove/*"
+
+# move to ~/.TOORM/manage/
+echo "[TOORM: end work, please manage below files]"
+echo "    * cd ~/.TOORM/manage/"
+echo "    * ls -a"
