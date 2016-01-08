@@ -73,27 +73,27 @@ echo ''
 nowD=$(getDateInSeconds)
 
 for elem in $(cat ~/.TOORM/manage_list.dat); do
-  echo -n '[File:' $elem']'
+    echo -n '[File:' $elem']'
 
-  # get Element create/modify date in seconds
-  elemD=$(getDateInSeconds $elem)
+    # get Element create/modify date in seconds
+    elemD=$(getDateInSeconds $elem)
 
-  # check date over
-  if isDateOver $nowD $elemD; then
-    # choose, how to operating about time over file
-    while :; do
-        echo -n '  > Choose Manage(m) / Remove(r): '
-        read option
-        if [ -z $option ]; then
-            echo '    * invalid input, please input [m] or [r]'
-            continue
-        fi
-        if [ $option != 'm' ] && [ $option != 'r' ]; then
-            echo '    * invalid input, please input [m] or [r]'
-        else
-            moveFile $elem $option
-            break
-        fi
-    done
-  fi
+    # check date over
+    if isDateOver $nowD $elemD; then
+        # choose, how to operating about time over file
+        while :; do
+            echo -n '  > Choose Manage(m) / Remove(r): '
+            read option
+            if [ -z $option ]; then
+                echo '    * invalid input, please input [m] or [r]'
+                continue
+            fi
+            if [ $option != 'm' ] && [ $option != 'r' ]; then
+                echo '    * invalid input, please input [m] or [r]'
+            else
+                moveFile $elem $option
+                break
+            fi
+        done
+    fi
 done
