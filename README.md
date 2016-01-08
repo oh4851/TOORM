@@ -31,3 +31,8 @@ __How to use__
    TODO
    ```
 
+5. explain about config key
+
+   | KEY | Description |
+   | ------------- | ----------- |
+   | LIMITDIFF | Set limit difference day |
