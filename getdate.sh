@@ -7,13 +7,14 @@
 #    - save "pwd" to manage_list
 # 1. run script on bash is loaded
 #    - start bash shell
-# 6. remove file location from 'manage_list.dat'
 # 7. remove or manage files
 # TODO: Done
 # 2. read file location list from '~/.TOORM/manage_list.dat'
 # 3. check date difference
 # 4. choose manage / remove
+# **** 5, 6 will be remove echo when test end ****
 # 5. move files
+# 6. remove file location from 'manage_list.dat'
 
 # get datetime in seconds function
 # param: empty | $1=file location
@@ -48,11 +49,18 @@ function moveFile(){
     local location=$1
     local option=$2
     if [ $option = 'r' ]; then
+        # TODO: remove echo
         echo "    * mv $location ~/.TOORM/remove/"
     elif [ $option = 'm' ]; then
+        # TODO: remove echo
         echo "    * mv $location ~/.TOORM/manage/"
     fi
-#TODO: remove file location from 'manage_list.dat'
+    # remove file location from 'manage_list.dat'
+    # TODO: remove echo
+    echo "    * sed -i "\,$location,d" ~/.TOORM/manage_list.dat"
+    echo '    * remove ls: '`ls ~/.TOORM/remove/`
+    echo '    * manage ls: '`ls ~/.TOORM/manage/`
+    echo '    * cat data : '`cat ~/.TOORM/manage_list.dat`
 }
 
 echo '#############################################'
