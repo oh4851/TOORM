@@ -28,7 +28,8 @@ __How to use__
 
 4. auto add to list when create or modify a file
    ```
-   TODO
+   au BufWritePost * :silent! !~/TOORM/tooadd.sh <afile>
+   au BufWritePost * :redraw!
    ```
 
 5. explain about config key
