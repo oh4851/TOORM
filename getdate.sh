@@ -10,7 +10,7 @@
 # 5. move files
 # 6. remove or manage files
 # TODO: Done
-# 2. read file location list from 'manage_list.dat'
+# 2. read file location list from '~/.TOORM/manage_list.dat'
 # 3. check date difference
 # 4. choose backup / remove
 
@@ -18,7 +18,7 @@
 nowD=`date "+%Y%m%d"`
 nowD=`date -d $nowD "+%s"`
 
-for elem in $(cat manage_list.dat); do
+for elem in $(cat ~/.TOORM/manage_list.dat); do
   echo -n '[File:' $elem']'
 
   # get Element create/modify date in seconds
