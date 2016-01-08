@@ -74,15 +74,16 @@ echo '#                                           #'
 echo '#     - Version 0.1.2                       #'
 echo '#     - Author: oh4851 (Hyeok Oh)           #'
 echo '#                                           #'
-echo '#############################################'
-echo ''
+echo '#############################################'$'\n'
 
 # load config file
+echo '[TOORM: config value is Loading...]'
 source ~/TOORM/toorm.cfg
 
 # get Now date in seconds
 nowD=$(getDateInSeconds)
 
+echo '[TOORM: manage_list is Reading...]'$'\n'
 for elem in $(cat ~/TOORM/manage_list.dat); do
     echo -n '[TOORM: '$elem' -- '
 
