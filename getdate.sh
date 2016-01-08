@@ -81,8 +81,7 @@ for elem in $(cat ~/.TOORM/manage_list.dat); do
   # check date over
   if isDateOver $nowD $elemD; then
     # choose, how to operating about time over file
-    while :
-    do
+    while :; do
         echo -n '  > Choose Manage(m) / Remove(r): '
         read option
         if [ -z $option ]; then
