@@ -17,7 +17,6 @@ __How to use__
    ```
    $ cd ~/TOORM
    $ mkdir .remove
-   $ mkdir .manage
    $ touch .manage_list.dat
    ```
 
