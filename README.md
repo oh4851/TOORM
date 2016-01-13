@@ -22,6 +22,7 @@ __How to use__
 
 3. regist script to PATH or move script to /usr/bin..
    ```
+   $ sudo chmod 755 ~/TOORM/toorm
    // if you have root(super) permission..
    $ cp ~/TOORM/toorm /usr/bin (or /usr/local/bin, etc...)
 
