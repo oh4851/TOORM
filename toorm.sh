@@ -46,11 +46,11 @@ function manageFile(){
     local option=$2
     if [ $option = 'r' ]; then
         echo "    * Move to .remove directory and Except from list"
-        echo "    * mv $location ~/TOORM/.remove/"
-        echo "    * sed -i "\,$location,d" ~/TOORM/.manage_list.dat"
+        mv $location ~/TOORM/.remove/
+        sed -i "\,$location,d" ~/TOORM/.manage_list.dat
     elif [ $option = 'e' ]; then
         echo "    * Does not manage this file anymore, Except from list"
-        echo "    * sed -i "\,$location,d" ~/TOORM/.manage_list.dat"
+        sed -i "\,$location,d" ~/TOORM/.manage_list.dat
     elif [ $option = 'n' ]; then
         echo "    * Do nothing this time, Manage next time"
     fi
@@ -104,9 +104,11 @@ for elem in $(cat ~/TOORM/.manage_list.dat); do
     fi
 done
 
-echo '---------------------------------------------'
+echo ''
 # remove files in ~/TOORM/remove/
-echo "[TOORM: remove files in ~/TOORM/.remove]"
-echo "    * ls -a ~/TOORM/.remove/"
-echo "    * rm -rf ~/TOORM/.remove/*"
+echo '[TOORM: remove all files in ~/TOORM/.remove]'
+ls -a --color=auto --show-control-chars ~/TOORM/.remove/
+rm -rf ~/TOORM/.remove/*
+
+echo $'\n''[TOORM: program end... good bye~]'
 
