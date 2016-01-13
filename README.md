@@ -20,12 +20,23 @@ __How to use__
    $ touch .manage_list.dat
    ```
 
-3. autorun toorm.sh when shell is started
+3. regist script to PATH or move script to /usr/bin..
+   ```
+   // if you have root(super) permission..
+   $ cp ~/TOORM/toorm /usr/bin (or /usr/local/bin, etc...)
+
+   // don't have..
+   $ export PATH=$PATH:[user home DIR]/TOORM/
+   ```
+
+4. autorun toorm.sh when shell is started
    ```
    TODO
    ```
 
-4. explain about options
+5. explain about options
+
+   `usage: toorm [-OPTION] [ARGUMENT]`
 
    | OPTION | What for |
    | ------------- | ----------- |
@@ -36,7 +47,7 @@ __How to use__
    | -s | show limit diff and manage list |
    | -h | show help page TODO: |
 
-5. explain about config key
+6. explain about config key
 
    | KEY | Description |
    | ------------- | ----------- |
