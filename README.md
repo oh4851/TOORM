@@ -16,9 +16,9 @@ __How to use__
 2. make something to your home directory
    ```
    $ cd ~/TOORM
-   $ mkdir remove
-   $ mkdir manage
-   $ touch manage_list.dat
+   $ mkdir .remove
+   $ mkdir .manage
+   $ touch .manage_list.dat
    ```
 
 3. autorun getdate.sh when shell is started

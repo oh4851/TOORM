@@ -2,7 +2,7 @@
 
 # check file already exists in manage_list
 filename=`realpath $1`
-result=`sed -n "\,$filename,p" ~/TOORM/manage_list.dat`
+result=`sed -n "\,$filename,p" ~/TOORM/.manage_list.dat`
 
 if [ -z $result ]; then
     echo $'\n''[TOORM: new file !!!]'

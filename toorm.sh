@@ -8,7 +8,7 @@
 # 1. run script on bash is loaded
 #    - start bash shell
 # TODO: Done
-# 2. read file location list from '~/TOORM/manage_list.dat'
+# 2. read file location list from '~/TOORM/.manage_list.dat'
 # 3. check date difference
 # 4. choose manage / remove
 # **** 5, 6 will be remove echo when test end ****
@@ -50,17 +50,17 @@ function moveFile(){
     local option=$2
     if [ $option = 'r' ]; then
         # TODO: remove echo
-        echo "    * mv $location ~/TOORM/remove/"
+        echo "    * mv $location ~/TOORM/.remove/"
     elif [ $option = 'm' ]; then
         # TODO: remove echo
-        echo "    * mv $location ~/TOORM/manage/"
+        echo "    * mv $location ~/TOORM/.manage/"
     fi
     # remove file location from 'manage_list.dat'
     # TODO: remove echo
-    echo "    * sed -i "\,$location,d" ~/TOORM/manage_list.dat"
-    echo '    * remove ls: '`ls ~/TOORM/remove/`
-    echo '    * manage ls: '`ls ~/TOORM/manage/`
-    echo '    * cat data : '`cat ~/TOORM/manage_list.dat`
+    echo "    * sed -i "\,$location,d" ~/TOORM/.manage_list.dat"
+    echo '    * remove ls: '`ls ~/TOORM/.remove/`
+    echo '    * manage ls: '`ls ~/TOORM/.manage/`
+    echo '    * cat data : '`cat ~/TOORM/.manage_list.dat`
 }
 
 echo '#############################################'
@@ -78,13 +78,13 @@ echo '#############################################'$'\n'
 
 # load config file
 echo '[TOORM: config value is Loading...]'
-source ~/TOORM/toorm.cfg
+source ~/TOORM/.toorm.cfg
 
 # get Now date in seconds
 nowD=$(getDateInSeconds)
 
 echo '[TOORM: manage_list is Reading...]'$'\n'
-for elem in $(cat ~/TOORM/manage_list.dat); do
+for elem in $(cat ~/TOORM/.manage_list.dat); do
     echo -n '[TOORM: '$elem' -- '
 
     # get Element create/modify date in seconds
@@ -112,10 +112,10 @@ done
 
 echo '---------------------------------------------'
 # remove files in ~/TOORM/remove/
-echo "[TOORM: remove files in ~/TOORM/remove]"
-echo "    * rm -rf ~/TOORM/remove/*"
+echo "[TOORM: remove files in ~/TOORM/.remove]"
+echo "    * rm -rf ~/TOORM/.remove/*"
 
 # move to ~/TOORM/manage/
 echo "[TOORM: end work, please manage below files]"
-echo "    * cd ~/TOORM/manage/"
+echo "    * cd ~/TOORM/.manage/"
 echo "    * ls -a"
