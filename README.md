@@ -20,16 +20,21 @@ __How to use__
    $ touch .manage_list.dat
    ```
 
-3. autorun getdate.sh when shell is started
+3. autorun toorm.sh when shell is started
    ```
    TODO
    ```
 
-4. auto add to list when create or modify a file
-   ```
-   au BufWritePost * :silent! !~/TOORM/tooadd.sh <afile>
-   au BufWritePost * :redraw!
-   ```
+4. explain about options
+
+   | OPTION | What for |
+   | ------------- | ----------- |
+   |  | no option program (run file manage) |
+   | -a [filename/path]| add [file] to manage list |
+   | -r [filename/path] | remove [file] from manage list |
+   | -l [new] | update LIMITDIFF value with [new] |
+   | -s | show limit diff and manage list |
+   | -h | show help page TODO: |
 
 5. explain about config key
 

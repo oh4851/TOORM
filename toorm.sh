@@ -1,16 +1,62 @@
 #!/bin/bash
 
 # TODO: Doing
-# 0. make command option on this program
-#     - add {filename}(absolute path / just file name)
-#       > regist file location(path) to manage_list.dat
-#     - rm {filename}(absolute path / just file name)
-#       > remove file location from manage_list.dat
-#     - show
-#       > show limit date diff and managed file list
-#     - limit {new limit}
-#       > change limit date
 # 1. auto run script when bash is loaded
+
+### function for options(a,r,l,s,h) #########
+
+# add file path to manage list function
+# param: $1=file name or file path
+function addToManageList(){
+    local absPath=`realpath $1`
+    local already=`sed -n "\,$absPath,p" ~/TOORM/.manage_list.dat`
+    if [ -e $absPath ] && [ -z $already ]; then
+        echo "[TOORM: $absPath >> will be managed]"
+        echo $absPath >> ~/TOORM/.manage_list.dat
+    else
+        echo '[TOORM: file not exist or already managed]'
+    fi
+}
+
+# remove file path from manage list function
+# param: $1=file name or file path
+function removeFromManageList(){
+    local absPath=`realpath $1`
+    local already=`sed -n "\,$absPath,p" ~/TOORM/.manage_list.dat`
+    if [ -e $absPath ] && [ -n $already ]; then
+        echo "[TOORM: $absPath >> will be not managed]"
+        sed -i "\,$absPath,d" ~/TOORM/.manage_list.dat
+    else
+        echo '[TOORM: file not exist or already not managed]'
+    fi
+}
+
+# change configuration key LIMITDIFF value function
+# param: $1=new limit difference value
+function changeLimitDiff(){
+    local key=LIMITDIFF
+    local newLimit=$1
+    echo "[TOORM: Key [$key] change $LIMITDIFF -> $newLimit]"
+    sed -i "s/\($key *= *\).*/\1$newLimit/" ~/TOORM/.toorm.cfg
+}
+
+
+# show limit difference and manage list function
+function showManageList(){
+    echo '[TOORM: LIMITDIFF]'
+    echo "  > $LIMITDIFF"
+    echo '[TOORM: manage_list]'
+    for elem in $(cat ~/TOORM/.manage_list.dat); do
+        echo "  > $elem"
+    done
+}
+
+# show help page function
+function showHelp(){
+    echo "[h] was triggered"
+}
+
+### function for no option ##################
 
 # get datetime in seconds function
 # param: empty | $1=file location
@@ -25,7 +71,7 @@ function getDateInSeconds(){
     echo `date -d $input "+%s"`
 }
 
-# get boolean of date is over
+# get date is over(boolean) function
 # param: $1=now date(sec), $2=element date(sec)
 # return: 0=date over (0 is true case in shell script)
 function isDateOver(){
@@ -57,6 +103,44 @@ function manageFile(){
     # remove file location from 'manage_list.dat'
 }
 
+# load config file
+source ~/TOORM/.toorm.cfg
+
+# option handling
+while getopts ":a:r:l:sh" opt; do
+    case $opt in
+    a)
+        addToManageList $OPTARG
+        exit 1
+        ;;
+    r)
+        removeFromManageList $OPTARG
+        exit 1
+        ;;
+    l)
+        changeLimitDiff $OPTARG
+        exit 1
+        ;;
+    s)
+        showManageList
+        exit 1
+        ;;
+    h)
+        showHelp
+        exit 1
+        ;;
+    \?)
+        echo "[TOORM: invalid option ($OPTARG)]" >&2
+        exit 1
+        ;;
+    :)
+        echo "[TOORM: ($OPTARG) requires an argument]" >&2
+        exit 1
+        ;;
+    esac
+done
+
+# no option
 echo '#############################################'
 echo '#                                           #'
 echo '#   LLLLL    LLL     LLL    LLLL    L   L   #'
@@ -65,14 +149,10 @@ echo '#     L     L   L   L   L   LLLL    L L L   #'
 echo '#     L     L   L   L   L   L  L    L L L   #'
 echo '#     L      LLL     LLL    L   L   L L L   #'
 echo '#                                           #'
-echo '#     - Version : 0.2.2                     #'
+echo '#     - Version : 0.3.0                     #'
 echo '#     - Author  : oh4851 (Hyeok Oh)         #'
 echo '#                                           #'
 echo '#############################################'$'\n'
-
-# load config file
-echo '[TOORM: config value Loading...]'
-source ~/TOORM/.toorm.cfg
 
 # get Now date in seconds
 nowD=$(getDateInSeconds)
