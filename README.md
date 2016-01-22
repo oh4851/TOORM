@@ -50,7 +50,7 @@ __How to use__
    |  | no option program (run file manage) |
    | -a [filename/path]| add [file] to manage list |
    | -r [filename/path] | remove [file] from manage list |
-   | -l [new] | update LIMITDIFF value with [new] |
+   | -c [attrkey] [new value] | change attribute value |
    | -s | show limit diff and manage list |
    | -h | show help page TODO: |
 

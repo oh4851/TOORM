@@ -31,13 +31,17 @@ function removeFromManageList(){
     fi
 }
 
-# change configuration key LIMITDIFF value function
-# param: $1=new limit difference value
-function changeLimitDiff(){
-    local key=LIMITDIFF
-    local newLimit=$1
-    echo "[TOORM: Key [$key] change $LIMITDIFF -> $newLimit]"
-    sed -i "s/\($key *= *\).*/\1$newLimit/" ~/.toorm.cfg
+# change attribute in configuration file
+# param: $1=attribute key, $2=new value
+function changeAttribute(){
+    local key=$1
+    local newValue=$2
+    echo "[TOORM: Key [$key] change to -> $newValue]"
+    if [ $key = 'TOORMHOME' ]; then
+        newValue=`realpath $newValue`
+        newValue=${newValue//\//\\/}
+    fi
+    sed -i "s/\($key *= *\).*/\1$newValue/" ~/.toorm.cfg
 }
 
 
@@ -107,7 +111,7 @@ function manageFile(){
 source ~/.toorm.cfg
 
 # option handling
-while getopts ":a:r:l:sh" opt; do
+while getopts ":a:r:c:sh" opt; do
     case $opt in
     a)
         addToManageList $OPTARG
@@ -117,8 +121,8 @@ while getopts ":a:r:l:sh" opt; do
         removeFromManageList $OPTARG
         exit 1
         ;;
-    l)
-        changeLimitDiff $OPTARG
+    c)
+        changeAttribute $OPTARG $3
         exit 1
         ;;
     s)
@@ -149,7 +153,7 @@ echo '#     L     L   L   L   L   LLLL    L L L   #'
 echo '#     L     L   L   L   L   L  L    L L L   #'
 echo '#     L      LLL     LLL    L   L   L L L   #'
 echo '#                                           #'
-echo '#     - Version : 0.3.1                     #'
+echo '#     - Version : 0.3.2                     #'
 echo '#     - Author  : oh4851 (Hyeok Oh)         #'
 echo '#                                           #'
 echo '#############################################'$'\n'
