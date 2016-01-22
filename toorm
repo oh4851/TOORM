@@ -9,10 +9,10 @@
 # param: $1=file name or file path
 function addToManageList(){
     local absPath=`realpath $1`
-    local already=`sed -n "\,$absPath,p" ~/TOORM/.manage_list.dat`
+    local already=`sed -n "\,$absPath,p" $TOORMHOME'.manage_list.dat'`
     if [ -e $absPath ] && [ -z $already ]; then
         echo "[TOORM: $absPath >> will be managed]"
-        echo $absPath >> ~/TOORM/.manage_list.dat
+        echo $absPath >> $TOORMHOME'.manage_list.dat'
     else
         echo '[TOORM: file not exist or already managed]'
     fi
@@ -22,10 +22,10 @@ function addToManageList(){
 # param: $1=file name or file path
 function removeFromManageList(){
     local absPath=`realpath $1`
-    local already=`sed -n "\,$absPath,p" ~/TOORM/.manage_list.dat`
+    local already=`sed -n "\,$absPath,p" $TOORMHOME'.manage_list.dat'`
     if [ -e $absPath ] && [ -n $already ]; then
         echo "[TOORM: $absPath >> will be not managed]"
-        sed -i "\,$absPath,d" ~/TOORM/.manage_list.dat
+        sed -i "\,$absPath,d" $TOORMHOME'.manage_list.dat'
     else
         echo '[TOORM: file not exist or already not managed]'
     fi
@@ -37,7 +37,7 @@ function changeLimitDiff(){
     local key=LIMITDIFF
     local newLimit=$1
     echo "[TOORM: Key [$key] change $LIMITDIFF -> $newLimit]"
-    sed -i "s/\($key *= *\).*/\1$newLimit/" ~/TOORM/.toorm.cfg
+    sed -i "s/\($key *= *\).*/\1$newLimit/" ~/.toorm.cfg
 }
 
 
@@ -46,7 +46,7 @@ function showManageList(){
     echo '[TOORM: LIMITDIFF]'
     echo "  > $LIMITDIFF"
     echo '[TOORM: manage_list]'
-    for elem in $(cat ~/TOORM/.manage_list.dat); do
+    for elem in $(cat $TOORMHOME'.manage_list.dat'); do
         echo "  > $elem"
     done
 }
@@ -92,11 +92,11 @@ function manageFile(){
     local option=$2
     if [ $option = 'r' ]; then
         echo "    * Move to .remove directory and Except from list"
-        mv $location ~/TOORM/.remove/
-        sed -i "\,$location,d" ~/TOORM/.manage_list.dat
+        mv $location $TOORMHOME'.remove/'
+        sed -i "\,$location,d" $TOORMHOME'.manage_list.dat'
     elif [ $option = 'e' ]; then
         echo "    * Does not manage this file anymore, Except from list"
-        sed -i "\,$location,d" ~/TOORM/.manage_list.dat
+        sed -i "\,$location,d" $TOORMHOME'.manage_list.dat'
     elif [ $option = 'n' ]; then
         echo "    * Do nothing this time, Manage next time"
     fi
@@ -104,7 +104,7 @@ function manageFile(){
 }
 
 # load config file
-source ~/TOORM/.toorm.cfg
+source ~/.toorm.cfg
 
 # option handling
 while getopts ":a:r:l:sh" opt; do
@@ -149,7 +149,7 @@ echo '#     L     L   L   L   L   LLLL    L L L   #'
 echo '#     L     L   L   L   L   L  L    L L L   #'
 echo '#     L      LLL     LLL    L   L   L L L   #'
 echo '#                                           #'
-echo '#     - Version : 0.3.0                     #'
+echo '#     - Version : 0.3.1                     #'
 echo '#     - Author  : oh4851 (Hyeok Oh)         #'
 echo '#                                           #'
 echo '#############################################'$'\n'
@@ -158,7 +158,7 @@ echo '#############################################'$'\n'
 nowD=$(getDateInSeconds)
 
 echo '[TOORM: manage_list Reading...]'$'\n'
-for elem in $(cat ~/TOORM/.manage_list.dat); do
+for elem in $(cat $TOORMHOME'.manage_list.dat'); do
     echo -n '[TOORM: '$elem' -- '
 
     # get Element create/modify date in seconds
@@ -187,8 +187,8 @@ done
 echo ''
 # remove files in ~/TOORM/remove/
 echo '[TOORM: remove all files in ~/TOORM/.remove]'
-ls -a --color=auto --show-control-chars ~/TOORM/.remove/
-rm -rf ~/TOORM/.remove/*
+ls -a --color=auto --show-control-chars $TOORMHOME'.remove/'
+rm -rf $TOORMHOME'.remove/*'
 
 echo $'\n''[TOORM: program end... good bye~]'
 
