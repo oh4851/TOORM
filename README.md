@@ -38,7 +38,7 @@ __How to use__
 
 5. autorun toorm.sh when shell is started
    ```
-   TODO
+   TODO: activate this project
    ```
 
 6. explain about options
